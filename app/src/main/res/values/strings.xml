@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Magic</string>
+    <string name="Button">Button</string>
+    <string name="InputText">Input Text</string>
+    <string name="NameSurname">Name Surname</string>
+    <string name="Gender">Gender: xxx</string>
+    <string name="Age">Age: xxx</string>
+    <string name="Degree">Degree: xxx</string>
+    <string name="Picture">Picture</string>
+    <string name="Add">Add</string>
+    <string name="X">X</string>
+    <string name="Yes">Yes</string>
+    <string name="No">No</string>
+    <string name="DeleteMsg">Are you sure want to delete?</string>
+    <string name="Share">Share</string>
+    <string name="Delete">Delete</string>
+    <string name="Color">Theme color</string>
+    <string name="Color_id">Choose Color</string>
+    <string name="Color_Red">Red</string>
+    <string name="Color_Blue">Blue</string>
+    <string name="Color_Green">Green</string>
+    <string name="Default">Default</string>
+    <string name="TakePhoto">Take a photo</string>
+    <string name="Photo">Photo</string>
+</resources>

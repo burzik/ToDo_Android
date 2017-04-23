@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp">
+
+    <EditText
+        android:id="@+id/label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:layout_alignParentTop="true" />
+    <EditText
+        android:id="@+id/moreinfo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:layout_below="@+id/label"/>
+    <Button
+        android:id="@+id/share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Share"
+        android:layout_below="@+id/moreinfo"
+        android:layout_alignParentLeft="true"/>
+    <Button
+        android:id="@+id/deleteinfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Delete"
+        android:layout_below="@+id/moreinfo"
+        android:layout_alignParentRight="true"/>
+</RelativeLayout>
