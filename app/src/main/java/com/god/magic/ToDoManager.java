@@ -5,8 +5,15 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -23,12 +30,15 @@ class ToDoManager {
 
     private static int theme_id = R.style.AppTheme;
     private static SharedPreferences.Editor preferencesEditor = null;
+    private static Firebase firebase;
 
     private ToDoManager() {
         values = new ArrayList<>();
     }
 
     static void createContext(Context context) {
+
+        firebase = new Firebase("https://todo-b43fa.firebaseio.com/Elem");
         db = new ToDoDB(context);
         String PREF_NAME = "Preferences";
         SharedPreferences preferences = context.getSharedPreferences(PREF_NAME, MODE_PRIVATE);
@@ -40,6 +50,26 @@ class ToDoManager {
     static void LoadFromDB() {
         try {
             values = db.getAllElems();
+            firebase = new Firebase("https://todo-b43fa.firebaseio.com/");
+
+            firebase.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+               /*     for (DataSnapshot child: dataSnapshot.getChildren()) {
+                        ToDoList todoList = child.getValue(ToDoList.class);
+                    //ToDoList todoList = dataSnapshot.getValue(ToDoList.class);
+                        values.add(todoList);
+                    }*/
+                }
+
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
+
+                }
+
+            });
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -50,6 +80,9 @@ class ToDoManager {
             ToDoList elem = new ToDoList(name, contents, check, date, photo);
             db.addElem(elem);
             values.add(elem);
+
+            firebase = new Firebase("https://todo-b43fa.firebaseio.com/Elem" +  elem.getId());
+            firebase.setValue(elem);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -69,6 +102,9 @@ class ToDoManager {
             ToDoList elem = values.get(index);
             db.deleteElem(elem);
             values.remove(index);
+
+            firebase = new Firebase("https://todo-b43fa.firebaseio.com/Elem" +  elem.getId());
+            firebase.removeValue();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -81,6 +117,10 @@ class ToDoManager {
             protected String doInBackground(Object... params) {
                 try {
                     db.updateElem(values.get(index));
+                    ToDoList todoList = values.get(index);
+                    firebase = new Firebase("https://todo-b43fa.firebaseio.com/Elem" +  todoList.getId());
+                    firebase.setValue(todoList);
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

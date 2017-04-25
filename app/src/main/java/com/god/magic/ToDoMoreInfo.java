@@ -24,7 +24,8 @@ import android.widget.ImageView;
 public class ToDoMoreInfo extends AppCompatActivity {
 
     //EA init variables
-    public static final int REQUEST_CAPTURE = 1;
+    public static final int REQUEST_CAPTURE = 0;
+    private static final int GALLERY_REQUEST = 1;
     ImageView resultPhoto;
     private int currentTheme = 0;
 
@@ -59,6 +60,7 @@ public class ToDoMoreInfo extends AppCompatActivity {
         Button shareButton = (Button) findViewById(R.id.share);
         Button deleteButton = (Button) findViewById(R.id.delete);
         Button click = (Button) findViewById(R.id.takephoto);
+        Button choose = (Button) findViewById(R.id.choosephoto);
 
         //EA twitter share
         shareButton.setOnClickListener(new View.OnClickListener() {
@@ -83,6 +85,16 @@ public class ToDoMoreInfo extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 launchCamera(v);
+            }
+        });
+
+        choose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
+                galleryIntent.setType("image/*");
+                startActivityForResult(galleryIntent, GALLERY_REQUEST);
             }
         });
 
@@ -112,7 +124,12 @@ public class ToDoMoreInfo extends AppCompatActivity {
              Bitmap photo = (Bitmap) extras.get("data");
              resultPhoto.setImageBitmap(photo);
          }
+         if (requestCode == GALLERY_REQUEST && resultCode == RESULT_OK) {
+             Uri imageUri = data.getData();
+             resultPhoto.setImageURI(imageUri);
+         }
     }
+
 
     //EA save when exit
     public void onBackPressed() {

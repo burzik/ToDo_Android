@@ -45,21 +45,29 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="120">
+        android:weightSum="10">
 
         <Button
             android:id="@+id/takephoto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:layout_weight="3"
+            android:layout_margin="6dp"
+            android:layout_weight="4"
             android:text="@string/TakePhoto" />
+
+        <Button
+            android:id="@+id/choosephoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            android:layout_weight="4"
+            android:text="@string/ChoosePhoto" />
 
         <Button
             android:id="@+id/share"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_margin="10dp"
             android:layout_weight="1"
             android:text="@string/Share" />
 
@@ -67,7 +75,7 @@
             android:id="@+id/delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_margin="10dp"
             android:layout_weight="1"
             android:text="@string/Delete" />
 
