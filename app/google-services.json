@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "824212601845",
+    "firebase_url": "https://todo-b43fa.firebaseio.com",
+    "project_id": "todo-b43fa",
+    "storage_bucket": "todo-b43fa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:824212601845:android:7bda099ad297cd2f",
+        "android_client_info": {
+          "package_name": "com.god.magic"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "824212601845-t3vi0ma4semqi1fev2grt7h8p8mcpq7e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHBytybWjxT4FF5tw23n9PVTyTQMrYLnE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
