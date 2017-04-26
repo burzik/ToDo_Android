@@ -13,11 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import com.firebase.client.DataSnapshot;
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.ValueEventListener;
-
 import java.util.Date;
 
 /**
@@ -30,9 +25,6 @@ public class MagicActivity extends AppCompatActivity {
 
     TodoAdapter mainAdapter;
     private int currentTheme = 0;
-    Firebase firebase;
-    //Firebase firebase = new Firebase("https://todo-b43fa.firebaseio.com/");
-
 
     //EA hide keyboard
     public static void hideKeyboard (Activity activity) {
@@ -96,37 +88,12 @@ public class MagicActivity extends AppCompatActivity {
             public void onClick(View view) {
                 ToDoManager.add(editText.getText().toString(), "", false, new Date (), null);
                 adapter.notifyDataSetChanged();
-
-                //adapter.getPosition();
-                firebase = new Firebase("https://todo-b43fa.firebaseio.com/Elem");
-            /*    firebase.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        String text = dataSnapshot.getValue(String.class);
-
-                    }
-
-                    @Override
-                    public void onCancelled(FirebaseError firebaseError) {
-
-                    }
-                });*/
-                //firebase.setValue(editText.getText().toString(),"cust");
-                //firebase.setValue(ToDoManager.get(position));
-                //firebase.
                 editText.setText("");
                 hideKeyboard(MagicActivity.this);
 
 
             }
         });
-    }
-
-    private void saveFB(){
-        final EditText editText = (EditText) findViewById(R.id.EditTextToDo);
-        String label = editText.getText().toString().trim();
-
-        //Firebase user = firebase.get
     }
 
     @Override

@@ -31,10 +31,6 @@ final class ToDoDB extends SQLiteOpenHelper {
     private static final String KEY_DATE = "COLUMN_DATE";
     private static final String KEY_IMAGE = "COLUMN_IMAGE";
 
-
-
-    //firebase.addValueEventListener();
-
     ToDoDB(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }

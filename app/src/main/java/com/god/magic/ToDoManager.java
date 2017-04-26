@@ -3,17 +3,20 @@ package com.god.magic;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.AsyncTask;
 
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -55,9 +58,8 @@ class ToDoManager {
             firebase.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-               /*     for (DataSnapshot child: dataSnapshot.getChildren()) {
+                    /*for (DataSnapshot child: dataSnapshot.getChildren()) {
                         ToDoList todoList = child.getValue(ToDoList.class);
-                    //ToDoList todoList = dataSnapshot.getValue(ToDoList.class);
                         values.add(todoList);
                     }*/
                 }
@@ -75,14 +77,24 @@ class ToDoManager {
         }
     }
     //EA add elem
-    static void add(String name, String contents, boolean check, Date date, Bitmap photo) {
+    static void add(String name, String info, boolean check, Date date, Bitmap photo) {
         try {
-            ToDoList elem = new ToDoList(name, contents, check, date, photo);
+            ToDoList elem = new ToDoList(name, info, check, date, photo);
             db.addElem(elem);
             values.add(elem);
 
+
             firebase = new Firebase("https://todo-b43fa.firebaseio.com/Elem" +  elem.getId());
             firebase.setValue(elem);
+
+        /*  ToDoList elemz = new ToDoList(name, info, date, "");
+            DatabaseReference firebasez;
+            firebasez = FirebaseDatabase.getInstance().getReference().child("Elem");
+            DatabaseReference fChild = firebasez.push();
+            fChild.setValue(elemz);
+*/
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -118,8 +130,28 @@ class ToDoManager {
                 try {
                     db.updateElem(values.get(index));
                     ToDoList todoList = values.get(index);
+
                     firebase = new Firebase("https://todo-b43fa.firebaseio.com/Elem" +  todoList.getId());
                     firebase.setValue(todoList);
+
+                    Bitmap photo = todoList.getPhoto();
+
+                    //DatabaseReference firebasez;
+                    //firebasez = FirebaseDatabase.getInstance().getReference().child("Elem");
+                    //firebasez.setValue(todoList);
+                    //DatabaseReference fChild = firebasez.push();
+                    //fChild.setValue(todoList);
+
+                    StorageReference mStorage = FirebaseStorage.getInstance().getReference();
+                    StorageReference filepath = mStorage.child("Images/IMG" + todoList.getId());
+                    filepath.putBytes(todoList.bitmapToByte(photo)).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            @SuppressWarnings("VisibleForTests") Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                            assert downloadUrl != null;
+                            firebase.child("photo").setValue(downloadUrl.toString());
+                        }
+                    });
 
                 } catch (Exception e) {
                     e.printStackTrace();
