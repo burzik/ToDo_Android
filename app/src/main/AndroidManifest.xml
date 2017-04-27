@@ -19,9 +19,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ToDoMoreInfo">
+        <activity android:name=".ToDoMoreInfo"
+            android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="android.intent.action.INFO" />
+                <action
+                    android:name="android.intent.action.INFO"
+                    />
 
                 <category android:name="android.intent.category.EDIT" />
             </intent-filter>
